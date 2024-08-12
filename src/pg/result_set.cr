@@ -156,7 +156,8 @@ class PG::ResultSet < ::DB::ResultSet
     @sized_io.read_remaining = col_bytesize.to_u64
 
     begin
-      yield @sized_io
+      r = yield @sized_io
+      r
     ensure
       # An exception might happen while decoding the value:
       # 1. Make sure to skip the column bytes
